@@ -30,7 +30,7 @@ public interface UserMapper {
 
     String findUserNameById(int uid);
 
-    int getIdByUsername(String username);
+    Integer getIdByUsername(String username);
 
     List<User> getInvalidUserList();
 

@@ -46,7 +46,7 @@ public class ShowGoodsTypeController {
         }
         request.getSession().setAttribute("goodsTypeList", goodsTypeList);
         logger.info("获取商品类型!");
-        return "redirect:/admin/showGoodsType";
+        return "redirect:/admin/showGoodsType.jsp";
     }
 
     @RequestMapping("/addgoodstype")

@@ -111,7 +111,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderVo> findOrderByUseridOrStatus( String username, String status) {
         List<OrderVo> orderVoList=new ArrayList<>();
-        int userid = userMapper.getIdByUsername(username);
+        Integer userid = userMapper.getIdByUsername(username);
         List<Order> orders=orderMapper.getOrder(userid,status);
         for (Order order : orders) {
             OrderVo orderVo=new OrderVo();

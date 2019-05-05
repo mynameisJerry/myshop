@@ -49,14 +49,9 @@
 			<div id="big_left">
 				<p style="font-size: 18px; margin-top: 15px">订单中心</p>
 				<a id="big_left_a" href="${pageContext.request.contextPath}/order/getorderlist">&nbsp;&nbsp;我的订单</a><br />
-				<a id="big_left_a" href="">&nbsp;&nbsp;意外保</a><br /> <a
-					id="big_left_a" href="">&nbsp;&nbsp;团购订单</a><br /> <a
-					id="big_left_a" href="">&nbsp;&nbsp;评价晒单</a><br />
 				<p style="font-size: 18px; margin-top: 15px" href="">个人中心</p>
-				<a id="big_left_a" href="${pageContext.request.contextPath}/self_show.jsp">&nbsp;&nbsp;个人资料</a><br /> <a
-					id="big_left_a" href="">&nbsp;&nbsp;消息通知</a><br /> <a
-					id="big_left_a" href="">&nbsp;&nbsp;优惠券</a><br /> <a
-					id="big_left_a" href="${pageContext.request.contextPath}/self_info.jsp">&nbsp;&nbsp;收货地址</a><br />
+				<a id="big_left_a" href="${pageContext.request.contextPath}/self_show.jsp">&nbsp;&nbsp;个人资料</a><br />
+				<a	id="big_left_a" href="${pageContext.request.contextPath}/address/getaddress">&nbsp;&nbsp;收货地址</a><br />
 			</div>
 			<div id="big_right" style="height: 500px; overflow: scroll;">
 

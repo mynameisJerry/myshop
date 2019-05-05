@@ -41,7 +41,7 @@ public class ShowAllOrderController {
         String orderId = request.getParameter("oid");
         orderService.updateStatus(orderId, "3");
         logger.info("发货成功!==>"+orderId);
-        return "forward:getallorder.action";
+        return "forward:getallorder";
     }
 
     @RequestMapping("/searchOrder")

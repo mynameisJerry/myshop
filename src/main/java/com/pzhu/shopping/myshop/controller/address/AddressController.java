@@ -53,7 +53,6 @@ public class AddressController {
     @RequestMapping("/addaddress")
     @LogAnnotation(opertionName = "添加地址",operationType = "addAddress")
     public String addAddress(HttpServletRequest request){
-
         Object object = request.getSession().getAttribute("user");
         if (object == null) {
             //没有登录，返回登录页面，重新登录
@@ -63,9 +62,7 @@ public class AddressController {
         String name=request.getParameter("name");
         String phone=request.getParameter("phone");
         String detail=request.getParameter("detail");
-
         System.err.println(name+"---"+phone+"---"+detail);
-
         addressService.addAddress(new Address(0,detail,name,phone,user.getId(),0));
         logger.info("添加收货地址");
         return "forward:getaddress";

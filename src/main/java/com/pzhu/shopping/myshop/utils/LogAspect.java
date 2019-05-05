@@ -30,7 +30,7 @@ public class LogAspect {
 
     }
 
-    @Before("pointCut()")
+//    @Before("pointCut()")
     public void before(JoinPoint joinPoint) throws Exception {
         //获取正在被拦截的方法
         String name = joinPoint.getTarget().getClass().getName();
@@ -70,7 +70,7 @@ public class LogAspect {
         String name = joinPoint.getTarget().getClass().getName();
         String name1 = joinPoint.getSignature().getName();
         Object[] args = joinPoint.getArgs();
-
+        System.err.println("afterreturning");
 
         //找方法上的注解
         Class<?> clazz = Class.forName(name);

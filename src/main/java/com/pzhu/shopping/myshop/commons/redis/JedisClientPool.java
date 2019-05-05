@@ -1,7 +1,10 @@
 package com.pzhu.shopping.myshop.commons.redis;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+
+import javax.xml.ws.soap.Addressing;
 
 /**
  * @author Administrator
@@ -9,6 +12,7 @@ import redis.clients.jedis.JedisPool;
  * @Classname JedisClientPool
  */
 public class JedisClientPool implements JedisClient{
+
 
     private JedisPool jedisPool;
 

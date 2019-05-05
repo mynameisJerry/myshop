@@ -15,8 +15,10 @@
 			$.get("${pageContext.request.contextPath}/user/checkusername?username="+this.value+"&num="+Math.random(),function(data){
 				if(data==0){
 					$("#nameMsg").html("用户名不存在").css("color","red");
+                    $("#btn").prop("disabled",true);
 				}else{
 					$("#nameMsg").html("");
+                    $("#btn").removeAttr("disabled");
 				}
 			})
 		});
@@ -120,6 +122,7 @@
 					</div>
 					<div class="login_submit">
 						<input class="submit" type="submit" name="submit" value="立即登录" id="btn" >
+						<%--<button class="submit" id="btn" >立即登录</button>--%>
 					</div>
 					<span style="color:red">${msg}</span>
 				</div>	

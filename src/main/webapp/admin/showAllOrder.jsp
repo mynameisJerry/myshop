@@ -35,7 +35,7 @@
 			<div class="panel-heading">
 				订单列表
 			</div>
-			<div class="panel-body">
+			<div class="panel-body" >
 				<div class="row">
 					<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
 						<div class="form-group form-inline">
@@ -59,7 +59,7 @@
 						<button type="button" class="btn btn-primary" id="search"><span class="glyphicon glyphicon-search"></span></button>
 					</div>
 				</div>
-				
+				<div style="height: 400px;overflow: scroll;">
 				<table id="tb_list" class="table table-striped table-hover table-bordered table-condensed">
 					<tr>
 						<td>序号</td>
@@ -100,6 +100,7 @@
 					</c:forEach>
 					
 				</table>
+				</div>
 			</div>
 		</div>
 	</div>

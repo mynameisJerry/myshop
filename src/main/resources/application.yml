@@ -6,12 +6,12 @@ spring:
     password: root
     type: com.alibaba.druid.pool.DruidDataSource #连接池的类型
   redis:
-    host: 120.0.0.1
+    host: 127.0.0.1
     port: 6379
-    password:
-    timeout: 120
+    password: foobared
     jedis:
       pool:
+        timeout: 120
         max-active: 1024
         max-idle: 100
         min-idle: 10

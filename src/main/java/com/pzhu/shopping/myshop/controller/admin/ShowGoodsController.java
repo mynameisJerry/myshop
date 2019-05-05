@@ -57,7 +57,7 @@ public class ShowGoodsController {
         }
         request.getSession().setAttribute("goodsList", showGoodsVoList);
         logger.info("获取所有商品成功!==>"+showGoodsVoList.toString());
-        return "redirect:/admin/showGoods";
+        return "redirect:/admin/showGoods.jsp";
     }
 
     @RequestMapping("/searchgoodslist")
@@ -91,7 +91,7 @@ public class ShowGoodsController {
         int goodsid = Integer.parseInt(_id);
         goodsService.deleteGoodsById(goodsid);
         logger.info("商品下架!==>"+goodsid);
-        return "forward:getgoodslist.action";
+        return "forward:getgoodslist";
     }
 
     @PostMapping("/updategoods")
@@ -126,7 +126,7 @@ public class ShowGoodsController {
         }
         goodsService.updateGoods(goods);
         logger.info("修改商品==>"+goods.toString());
-        return "forward:getgoodslist.action";
+        return "forward:getgoodslist";
     }
 
 }

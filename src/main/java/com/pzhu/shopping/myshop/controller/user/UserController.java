@@ -16,6 +16,8 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
@@ -41,10 +43,18 @@ public class UserController {
 
     @Autowired
     private JedisClientPool jedisClientPool;
+    @Autowired
+    private JedisPool jedisPool;
 
+    /**
+     * 注册接口
+     * @param request
+     * @return
+     */
     @RequestMapping("/register")
     @LogAnnotation(opertionName = "用户注册",operationType = "register")
     public String register(HttpServletRequest request) {
+        Jedis jedis = jedisPool.getResource();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String repassword = request.getParameter("repassword");
@@ -61,7 +71,7 @@ public class UserController {
         user.setUpdatetime(new Date());
         user.setIpaddress(request.getRemoteAddr());
         //判断手机验证码是否正确
-        String phoneCode = jedisClientPool.get(phone);//从缓存中去除短信验证码
+        String phoneCode = jedis.get(phone);//从缓存中去除短信验证码
         if (validCode==null || !validCode.equals(phoneCode)) {
             logger.info("手机验证码不匹配!");
             return "/login";
@@ -108,31 +118,32 @@ public class UserController {
         if (TextUtils.empty(username)) {
             request.setAttribute("msg", "用户名不能为空");
             logger.info("用户名不能为空!");
-            return "redirect:/login.jsp";
+            return "/login";
         }
         if (TextUtils.empty(password)) {
             request.setAttribute("msg", "密码不能为空");
             logger.info("密码不能为空");
-            return "redirect:/login.jsp";
+            return "/login";
         }
         if (TextUtils.empty(vcode)) {
             request.setAttribute("msg", "验证码不能为空");
             logger.info("验证码不能为空");
-            return "redirect:/login.jsp";
+            return "/login";
         }
         //判断验证码是否正确
         String imgCode= (String) request.getSession().getAttribute("vcode");
         if (!imgCode.equalsIgnoreCase(vcode)) {
             request.setAttribute("msg", "验证码输入错误");
             logger.info("验证码输入错误");
-            return "redirect:/login.jsp";
+            return "/login";
         }
         //首先判断传递的用户名和密码不能为空
         password=PasswordUtils.getPasswordMD5(password, passwordSalt, 1024);
         User user = userService.findUserByUsernameAndPassword(username, password);
         if (user == null) {
+            request.setAttribute("msg", "密码错误");
             logger.info("用户名或密码错误");
-            return "redirect:/login.jsp";
+            return "/login";
         }
         //放到session中
         request.getSession().setAttribute("user",user);
@@ -174,6 +185,9 @@ public class UserController {
     @LogAnnotation(opertionName = "用户登出",operationType = "logOut")
     public String logOut(HttpServletRequest request, HttpServletResponse response){
         User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            return "/login";
+        }
         String username=user.getUsername();
         //删除cookie
         Cookie cookie=new Cookie("userinfo", "");

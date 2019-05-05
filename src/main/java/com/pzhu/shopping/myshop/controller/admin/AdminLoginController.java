@@ -41,11 +41,11 @@ public class AdminLoginController {
 
         if (TextUtils.empty(username)) {
             request.setAttribute("msg", "用户名不能为空");
-            return "redirect:/admin/login";
+            return "redirect:/admin/login.jsp";
         }
         if (TextUtils.empty(password)) {
             request.setAttribute("msg", "密码不能为空");
-            return "redirect:/admin/login";
+            return "redirect:/admin/login.jsp";
         }
 
         //管理员登录
@@ -56,11 +56,11 @@ public class AdminLoginController {
         } catch (Exception e) {
             e.printStackTrace();
             logger.info("管理员登录失败");
-            return "redirect:/admin/admin";
+            return "redirect:/admin/admin.jsp";
         }
         request.getSession().setAttribute("admin", admin);
         logger.info("管理员登录成功!==>"+username);
-        return "redirect:/admin/admin";
+        return "redirect:/admin/admin.jsp";
     }
 
     @RequestMapping("/searchuserlist")
@@ -69,8 +69,6 @@ public class AdminLoginController {
         request.setCharacterEncoding("utf-8");
         String username = request.getParameter("username");
         String gender = request.getParameter("gender");
-
-
         if ("1".equals(gender)) {
             gender = "男";
         } else if ("2".equals(gender)) {
@@ -89,7 +87,7 @@ public class AdminLoginController {
         List<User> userList = userService.getUserList();
         request.getSession().setAttribute("userList", userList);
         logger.info("获取所有用户==>"+userList.toString());
-        return "redirect:/admin/userList";
+        return "redirect:/admin/userList.jsp";
     }
 
     @RequestMapping("/getinvaliduserlist")
@@ -97,7 +95,7 @@ public class AdminLoginController {
         List<User> userList = userService.getInvalidUserList();
         request.getSession().setAttribute("userList", userList);
         logger.info("获取无效用户==>"+userList.toString());
-        return "redirect:/admin/invalidUser";
+        return "redirect:/admin/invalidUser.jsp";
     }
 
     @GetMapping("/deleteuser")

@@ -19,7 +19,56 @@
             if(res==true){
                 window.location.href="${pageContext.request.contextPath }/goods/deleteGoodsType?id="+id;
             }
-        }
+        };
+
+        //条件查询@TODO
+        $(function(){
+            //给查询按钮 添加 点击事件
+            $("#search").click(function(){
+                var level = $("input[name='level']").val();
+                var goodsname = $("input[name='goodsname']").val();
+                //使用ajax 进行异步交互
+                $.ajax({
+                    url:"${pageContext.request.contextPath}/admin/searchuserlist?username="+username+"&gender="+gender,
+                    method:"post",
+                    success:function(data){
+                        if(data==0){
+                            //alert("未找到指定内容");
+                            $("#tb_list").html("<tr class='tr_head'><td>编号</td><td>邮箱</td><td>姓名</td><td>性别</td><td>类别</td><td>操作</td></tr>");
+                            //$("input[name='username']").val("");
+                            $("input[name='gender']").removeAttr("checked");
+                        }else{
+                            //showMsg(data);
+                            var list = data;
+                            $("#tb_list").html("<tr class='tr_head'><td>编号</td><td>邮箱</td><td>姓名</td><td>性别</td><td>类别</td><td>操作</td></tr>");
+                            var i = 1;
+                            for (var u in list) {
+                                //声明 tr  td  对象
+                                var tr = $("<tr></tr>");
+                                var td1 = $("<td>" + (i++) + "</td>");
+                                var td2 = $("<td>" + list[u].email + "</td>");
+                                var td3 = $("<td>" + list[u].username + "</td>");
+                                var td4 = $("<td>" + list[u].gender + "</td>");
+                                var td5 = $("<td>" + (list[u].role == 0 ? "管理员" : "会员") + "</td>");
+                                var td6 = $("<td><a href='javascript:delUser(" + list[u].id + ")' class='btn btn-primary btn-xs'>删除</a></td>");
+
+                                //将td 添加到tr中
+                                tr.append(td1);
+                                tr.append(td2);
+                                tr.append(td3);
+                                tr.append(td4);
+                                tr.append(td5);
+                                tr.append(td6);
+                                $("#tb_list").append(tr);
+                            }
+                        }
+                    },
+                    error:function(XMLHttpRequest,textStatus,errorThrown){
+                        alert("失败"+XMLHttpRequest.status+":"+textStatus+":"+errorThrown);
+                    }
+                })
+            })
+        })
 
 	</script>
 
@@ -72,7 +121,7 @@
 											<button type="button" class="close" data-dismiss="modal">
 												<span>&times;</span>
 											</button>
-											<h4 class="modal-title">修改用户</h4>
+											<h4 class="modal-title">修改商品类型</h4>
 										</div>
 										<form action="${pageContext.request.contextPath }/goods/updategoodstype" method="post" class="form-horizontal" style="padding:10px">
 											<div class="motal-body">
@@ -84,13 +133,13 @@
 													</div>
 												</div>
 												<div class="form-group">
-													<label class="col-sm-2 control-label">用户名</label>
+													<label class="col-sm-2 control-label">等级</label>
 													<div class="col-sm-10">
 														<input type="text" name="level" class="form-control" value="${gtype.level}">
 													</div>
 												</div>
 												<div class="form-group">
-													<label class="col-sm-2 control-label">用户角色</label>
+													<label class="col-sm-2 control-label">所属类型</label>
 													<div class="col-sm-10">
 														<input type="text" name="parent" class="form-control" value="${gtype.parentName}">
 													</div>

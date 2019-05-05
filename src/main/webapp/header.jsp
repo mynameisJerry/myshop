@@ -32,9 +32,9 @@
             </span>
             <span style="float:right">
            		<c:if test="${empty user}">
-	                <a href="login.jsp" id="a_top">登录</a>
+	                <a href="${pageContext.request.contextPath}/login.jsp" id="a_top">登录</a>
 	                <li>|</li>
-	                <a href="register.jsp" id="a_top">注册</a>
+	                <a href="${pageContext.request.contextPath}/register.jsp" id="a_top">注册</a>
            		</c:if>
        			<c:if test="${not empty user}">
        				<a href="${pageContext.request.contextPath}/self_show.jsp" id="a_top">${user.username}</a>

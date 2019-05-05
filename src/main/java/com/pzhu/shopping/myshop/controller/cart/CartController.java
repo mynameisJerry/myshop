@@ -42,13 +42,10 @@ public class CartController {
         User user = (User) object;
         String _goodsId = request.getParameter("goodsId");
         int goodsId=Integer.parseInt(_goodsId);
-
         Cart cart=cartService.findByUserIdAndGoodsId(user.getId(),goodsId);
-
         System.out.println("===>"+cart);
         //获取商品
         Goods goods=goodsService.findById(goodsId);
-
         if(cart==null){
             //向购物车中加入数据
             cartService.add(new Cart(user.getId(),goodsId,1,goods.getPrice(),null));
